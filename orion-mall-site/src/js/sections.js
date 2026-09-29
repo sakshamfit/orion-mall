@@ -95,6 +95,9 @@ export function initSections() {
   });
 
   /* ---------------- B. pinned horizontal gallery ---------------- */
+  // The trigger (and therefore its pin-spacer) is created up-front so that
+  // anchor links to sections below the gallery resolve to the right place even
+  // before the user has scrolled there.
   const shopSection = document.getElementById('shop');
   const viewport = document.getElementById('shop-viewport');
   const track = document.getElementById('shop-track');
@@ -333,14 +336,24 @@ function initForm() {
   if (!form) return;
   const status = document.getElementById('form-status');
   const fields = [
-    { input: form.querySelector('#cf-name'), err: form.querySelector('#cf-name-err'), test: (v) => v.trim().length >= 2, msg: 'Please enter your name (2+ characters).' },
+    {
+      input: form.querySelector('#cf-name'),
+      err: form.querySelector('#cf-name-err'),
+      test: (v) => v.trim().length >= 2,
+      msg: 'Please enter your name (2+ characters).',
+    },
     {
       input: form.querySelector('#cf-email'),
       err: form.querySelector('#cf-email-err'),
       test: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()),
       msg: 'Please enter a valid email address.',
     },
-    { input: form.querySelector('#cf-msg'), err: form.querySelector('#cf-msg-err'), test: (v) => v.trim().length >= 10, msg: 'Please write at least 10 characters.' },
+    {
+      input: form.querySelector('#cf-msg'),
+      err: form.querySelector('#cf-msg-err'),
+      test: (v) => v.trim().length >= 10,
+      msg: 'Please write at least 10 characters.',
+    },
   ];
 
   const validateField = (f, showOnValid = false) => {

@@ -132,7 +132,11 @@ export async function initHero({ loaderEl, fillEl, pctEl, posterEl, canvasEl, ov
 
   overlayTl.set(ovEls[2], { autoAlpha: 1 }, 0.345);
   const tripleSpans = [...overlaysEl.querySelectorAll('.ov[data-ov="3"] span')];
-  overlayTl.from(tripleSpans, { opacity: 0, y: 40, duration: 0.035, stagger: 0.02, ease: 'power3.out' }, 0.345);
+  overlayTl.from(
+    tripleSpans,
+    { opacity: 0, y: 40, duration: 0.035, stagger: 0.02, ease: 'power3.out' },
+    0.345,
+  );
   tripleSpans.forEach((s, i) => {
     overlayTl.call(() => s.classList.add('is-hot'), null, 0.4 + i * 0.045);
     if (i < tripleSpans.length - 1) {

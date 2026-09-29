@@ -2,6 +2,7 @@
  * main.js — bootstrap: Lenis smooth scroll synced to the GSAP ticker,
  * then the hero walkthrough, nav, cursor, sections and ambient WebGL layer.
  */
+import '../css/fonts.css';
 import '../css/tokens.css';
 import '../css/base.css';
 import '../css/loader.css';
@@ -18,10 +19,12 @@ import { initHero } from './hero.js';
 import { initNav } from './nav.js';
 import { initCursor } from './cursor.js';
 import { initSections } from './sections.js';
+import { onIdle } from './utils.js';
 // three-layer is code-split below (dynamic import) so three.js lands in a lazy
 // chunk and the initial payload stays small.
 
 gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 const teardowns = [];
 let lenis = null;
@@ -59,20 +62,45 @@ async function boot() {
   });
   if (heroTeardown) teardowns.push(heroTeardown);
 
-  /* ---------- the rest ---------- */
-  teardowns.push(initNav({ lenis }));
-  teardowns.push(initCursor());
-  teardowns.push(initSections());
+  /* ---------- deferred: nav, cursor, sections (idle-time work) ---------- */
+  // Kept off the critical path so the hero + loader stay responsive. Each module
+  // initialises in its own macrotask so no single long task blocks the main
+  // thread (this is what keeps Total Blocking Time low).
+  const initDeferred = async () => {
+    teardowns.push(initNav({ lenis }));
+    await new Promise((r) => setTimeout(r, 0));
+    teardowns.push(initCursor());
+    await new Promise((r) => setTimeout(r, 0));
+    teardowns.push(initSections());
+    ScrollTrigger.refresh();
+  };
+  onIdle(initDeferred, 250);
 
-  /* ---------- ambient WebGL (lazy chunk) ---------- */
-  import('./three-layer.js')
-    .then(({ initAmbient }) => {
-      teardowns.push(initAmbient());
-    })
-    .catch((err) => console.warn('[ambient] failed to initialise', err));
+  /* ---------- ambient WebGL (lazy: only once the user reaches the mall) ---------- */
+  // The three.js chunk (~118 KiB gz) is never needed while the hero walkthrough
+  // plays, so it is fetched only when the first content section scrolls in.
+  const loadAmbient = () =>
+    import('./three-layer.js')
+      .then(({ initAmbient }) => {
+        teardowns.push(initAmbient());
+      })
+      .catch((err) => console.warn('[ambient] failed to initialise', err));
 
-  // Everything that affects measurements is in place: refresh once.
-  ScrollTrigger.refresh();
+  const firstSection = document.getElementById('about');
+  if (firstSection && 'IntersectionObserver' in window) {
+    const ambientIO = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          ambientIO.disconnect();
+          loadAmbient();
+        }
+      },
+      { rootMargin: '300px 0px 300px 0px' },
+    );
+    ambientIO.observe(firstSection);
+  } else {
+    loadAmbient();
+  }
 
   // Expose a teardown handle + debug counters (used by the test harness).
   window.__orionDebug = () => ({

@@ -7,9 +7,7 @@
   z-index: 10000;
   display: grid;
   place-items: center;
-  background:
-    radial-gradient(120% 90% at 50% 110%, #2b2115 0%, transparent 55%),
-    var(--bg);
+  background: radial-gradient(120% 90% at 50% 110%, #2b2115 0%, transparent 55%), var(--bg);
   text-align: center;
 }
 .loader__inner {

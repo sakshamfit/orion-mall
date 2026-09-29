@@ -3,8 +3,7 @@
 export const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
 export const lerp = (a, b, t) => a + (b - a) * t;
 
-export const prefersReducedMotion = () =>
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+export const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /** Low-end / data-saving devices get the cheap experience. */
 export const isLowEnd = () => {

@@ -49,7 +49,11 @@ async function newPage(browser, { width = 1440, height = 900, reduced = false, h
       for (const entry of list.getEntries()) {
         if (!entry.hadRecentInput) {
           window.__cls += entry.value;
-          window.__shifts.push({ value: entry.value, t: Math.round(entry.startTime), src: entry.sources?.[0]?.node?.nodeName });
+          window.__shifts.push({
+            value: entry.value,
+            t: Math.round(entry.startTime),
+            src: entry.sources?.[0]?.node?.nodeName,
+          });
         }
       }
     }).observe({ type: 'layout-shift', buffered: true });
@@ -120,6 +124,52 @@ async function main() {
       const cls = await page.evaluate(() => window.__cls || 0);
       record('CLS < 0.05', cls < 0.05, `CLS=${cls.toFixed(4)}`);
 
+      /* payload transferred before the loader hid */
+      const payload = await page.evaluate(() => {
+        const res = performance.getEntriesByType('resource');
+        const doc = performance.getEntriesByType('navigation')[0];
+        const t = window.__loaderHiddenAt ?? Infinity;
+        let bytes = doc ? doc.transferSize : 0;
+        for (const r of res) {
+          if (r.startTime <= t) bytes += r.transferSize || 0;
+        }
+        return bytes;
+      });
+      record(
+        'initial payload before loader < 2.5 MB',
+        payload < 2.5 * 1024 * 1024,
+        `${(payload / 1048576).toFixed(2)} MB`,
+      );
+
+      /* scrub frame-rate probe: rAF deltas while scrolling through the pin */
+      const fps = await page.evaluate(async () => {
+        const deltas = [];
+        let last = performance.now();
+        let frames = 0;
+        const vh = window.innerHeight;
+        return await new Promise((resolve) => {
+          const tick = () => {
+            const now = performance.now();
+            deltas.push(now - last);
+            last = now;
+            frames++;
+            const target = vh * 6 * 0.5;
+            if (window.scrollY < target) {
+              window.scrollTo(0, Math.min(target, window.scrollY + 60));
+              requestAnimationFrame(tick);
+            } else {
+              deltas.sort((a, b) => a - b);
+              const median = deltas[Math.floor(deltas.length / 2)];
+              resolve({ medianDelta: Math.round(median * 10) / 10, frames });
+            }
+          };
+          requestAnimationFrame(tick);
+        });
+      });
+      console.log(
+        `INFO  scrub median frame time: ${fps.medianDelta}ms (~${Math.round(1000 / fps.medianDelta)}fps) over ${fps.frames} frames`,
+      );
+
       const hero = await page.evaluate(() => {
         const c = document.getElementById('hero-canvas');
         const r = c.getBoundingClientRect();
@@ -153,7 +203,11 @@ async function main() {
         const vis = [...document.querySelectorAll('.ov')].map((el) => getComputedStyle(el).opacity);
         return vis;
       });
-      record('overlays animated (one visible mid-scroll)', ovState.filter((o) => parseFloat(o) > 0.5).length === 1, JSON.stringify(ovState));
+      record(
+        'overlays animated (one visible mid-scroll)',
+        ovState.filter((o) => parseFloat(o) > 0.5).length === 1,
+        JSON.stringify(ovState),
+      );
 
       await scrollTo(page, heroPin + vh * 1.5, 40);
       await sleep(300);
@@ -173,7 +227,11 @@ async function main() {
       const vw = await page.evaluate(() => window.innerWidth);
       record('no horizontal scroll after fast flick', afterFlick <= vw + 1, `${afterFlick}px vs ${vw}`);
       const errsAfterFlick = console_.filter((m) => m.startsWith('error') || m.startsWith('pageerror'));
-      record('no errors after fast flick', errsAfterFlick.length === 0, errsAfterFlick.slice(0, 2).join(' | '));
+      record(
+        'no errors after fast flick',
+        errsAfterFlick.length === 0,
+        errsAfterFlick.slice(0, 2).join(' | '),
+      );
 
       /* ============ 4. Resize mid-scroll ============ */
       await page.setViewport({ width: 1024, height: 768 });
@@ -186,7 +244,11 @@ async function main() {
       await scrollTo(page, heroPin * 0.5, 20);
       await sleep(400);
       const errsAfterResize = console_.filter((m) => m.startsWith('error') || m.startsWith('pageerror'));
-      record('no errors after resize mid-scroll', errsAfterResize.length === 0, errsAfterResize.slice(0, 2).join(' | '));
+      record(
+        'no errors after resize mid-scroll',
+        errsAfterResize.length === 0,
+        errsAfterResize.slice(0, 2).join(' | '),
+      );
 
       /* ============ 5. Reload while scrolled ============ */
       await page.setViewport({ width: 1440, height: 900 });
@@ -212,18 +274,34 @@ async function main() {
       }
       const h1 = await heap();
       const growth = ((h1 - h0) / Math.max(1, h0)) * 100;
-      record('memory growth < 25% over 3 cycles', growth < 25, `${h0} -> ${h1} bytes (${growth.toFixed(1)}%)`);
+      record(
+        'memory growth < 25% over 3 cycles',
+        growth < 25,
+        `${h0} -> ${h1} bytes (${growth.toFixed(1)}%)`,
+      );
 
       // (CLS is a load-time metric — measured above before any interaction;
       // user-driven scrolls/resizes legitimately shift layout and are excluded
       // from the Lighthouse-style score.)
-      const finalConsole = console_.filter((m) => m.startsWith('error') || m.startsWith('pageerror') || m.startsWith('warning'));
-      record('zero console errors/warnings (full session)', finalConsole.length === 0, finalConsole.slice(0, 3).join(' | '));
+      const finalConsole = console_.filter(
+        (m) => m.startsWith('error') || m.startsWith('pageerror') || m.startsWith('warning'),
+      );
+      record(
+        'zero console errors/warnings (full session)',
+        finalConsole.length === 0,
+        finalConsole.slice(0, 3).join(' | '),
+      );
       await page.close();
     }
 
     /* ============ 7. Responsive sweep ============ */
-    for (const [w, h] of [[360, 780], [768, 1024], [1024, 800], [1440, 900], [1920, 1080]]) {
+    for (const [w, h] of [
+      [360, 780],
+      [768, 1024],
+      [1024, 800],
+      [1440, 900],
+      [1920, 1080],
+    ]) {
       const { page, console_ } = await newPage(browser, { width: w, height: h });
       await page.goto(BASE, { waitUntil: 'load' });
       await waitForLoaderGone(page);
@@ -280,10 +358,19 @@ async function main() {
           kickerOpacity,
         };
       });
-      record('reduced-motion: static poster hero', state.posterVisible && state.canvasHidden, JSON.stringify(state));
-      record('reduced-motion: content readable', parseFloat(state.aboutOpacity) > 0.9 && parseFloat(state.kickerOpacity) > 0.9);
+      record(
+        'reduced-motion: static poster hero',
+        state.posterVisible && state.canvasHidden,
+        JSON.stringify(state),
+      );
+      record(
+        'reduced-motion: content readable',
+        parseFloat(state.aboutOpacity) > 0.9 && parseFloat(state.kickerOpacity) > 0.9,
+      );
       await scrollTo(page, 3000, 20);
-      const stillStatic = await page.evaluate(() => document.getElementById('hero-poster').classList.contains('is-hidden') === false);
+      const stillStatic = await page.evaluate(
+        () => document.getElementById('hero-poster').classList.contains('is-hidden') === false,
+      );
       record('reduced-motion: hero stays static on scroll', stillStatic);
       const errs = console_.filter((m) => m.startsWith('error') || m.startsWith('pageerror'));
       record('reduced-motion: no console errors', errs.length === 0, errs.slice(0, 2).join(' | '));
@@ -293,30 +380,58 @@ async function main() {
 
     /* ============ 10. Ambient WebGL layer (forced on) ============ */
     {
-      const { page, console_ } = await newPage(browser, { hiConcurrency: true });
+      const { page } = await newPage(browser, { hiConcurrency: true });
       await page.goto(BASE, { waitUntil: 'load' });
       await waitForLoaderGone(page);
-      await sleep(1500);
+      await scrollTo(page, await page.evaluate(() => window.innerHeight * 7), 25);
+      await sleep(1800);
       const ambient = await page.evaluate(() => {
         const c = document.getElementById('ambient-canvas');
         return { w: c.width, h: c.height, display: getComputedStyle(c).display };
       });
-      record('ambient WebGL canvas active (hi-concurrency)', ambient.w > 0 && ambient.display !== 'none', JSON.stringify(ambient));
+      record(
+        'ambient WebGL canvas active (hi-concurrency)',
+        ambient.w > 0 && ambient.display !== 'none',
+        JSON.stringify(ambient),
+      );
       // low-end device -> disabled
-      const { page: p2 } = await newPage(browser);
+      const { page: p2, console_: console2 } = await newPage(browser);
       await p2.goto(BASE, { waitUntil: 'load' });
-      await sleep(800);
-      const disabled = await p2.evaluate(() => getComputedStyle(document.getElementById('ambient-canvas')).display === 'none');
+      await waitForLoaderGone(p2);
+      await scrollTo(p2, await p2.evaluate(() => window.innerHeight * 7), 25);
+      await sleep(1200);
+      const disabled = await p2.evaluate(
+        () => getComputedStyle(document.getElementById('ambient-canvas')).display === 'none',
+      );
       record('ambient disabled on low-end device', disabled);
-      const errs = console_.filter((m) => m.startsWith('error') || m.startsWith('pageerror'));
+      const errs = console2.filter((m) => m.startsWith('error') || m.startsWith('pageerror'));
       record('ambient: no console errors', errs.length === 0, errs.slice(0, 2).join(' | '));
       await p2.close();
       await page.close();
     }
 
-    /* ============ 11. Teardown handle ============ */
+    /* ============ 11. Anchor navigation ============ */
     {
       const { page, console_ } = await newPage(browser);
+      await page.goto(BASE, { waitUntil: 'load' });
+      await waitForLoaderGone(page);
+      await sleep(1200); // let the deferred sections init run
+      await page.click('.nav__links a[href="#dine"]');
+      await sleep(2200);
+      const landed = await page.evaluate(() => {
+        const dine = document.getElementById('dine');
+        const r = dine.getBoundingClientRect();
+        return Math.abs(r.top) < window.innerHeight * 0.35;
+      });
+      record('nav anchor scrolls to the right section', landed);
+      const errs = console_.filter((m) => m.startsWith('error') || m.startsWith('pageerror'));
+      record('anchor nav: no console errors', errs.length === 0, errs.slice(0, 2).join(' | '));
+      await page.close();
+    }
+
+    /* ============ 12. Teardown handle ============ */
+    {
+      const { page } = await newPage(browser);
       await page.goto(BASE, { waitUntil: 'load' });
       await waitForLoaderGone(page);
       await sleep(800);
@@ -324,7 +439,11 @@ async function main() {
       await page.evaluate(() => window.__orionTeardown && window.__orionTeardown());
       await sleep(300);
       const after = await page.evaluate(() => (window.__orionDebug ? window.__orionDebug().triggers : -1));
-      record('teardown kills all ScrollTriggers', after === 0 && before > 0, `before=${before} after=${after}`);
+      record(
+        'teardown kills all ScrollTriggers',
+        after === 0 && before > 0,
+        `before=${before} after=${after}`,
+      );
       await page.close();
     }
   } finally {

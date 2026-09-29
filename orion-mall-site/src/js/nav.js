@@ -31,7 +31,8 @@ export function initNav({ lenis } = {}) {
   const links = [...menu.querySelectorAll('.menu__nav a, .menu__foot a')];
   const menuTl = reduced
     ? null
-    : gsap.timeline({ paused: true })
+    : gsap
+        .timeline({ paused: true })
         .to(menu, { clipPath: 'inset(0 0 0% 0)', duration: 0.6, ease: 'power4.inOut' })
         .from(links, { y: 70, opacity: 0, duration: 0.5, stagger: 0.06, ease: 'power3.out' }, 0.15);
 
@@ -95,9 +96,7 @@ export function initNav({ lenis } = {}) {
 
   /* ---------- current-section highlight ---------- */
   const navLinks = [...nav.querySelectorAll('.nav__links a')];
-  const sections = navLinks
-    .map((a) => document.querySelector(a.getAttribute('href')))
-    .filter(Boolean);
+  const sections = navLinks.map((a) => document.querySelector(a.getAttribute('href'))).filter(Boolean);
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {

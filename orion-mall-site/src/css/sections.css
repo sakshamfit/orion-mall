@@ -122,8 +122,9 @@
   justify-content: flex-end;
   padding: 1.3rem;
   overflow: hidden;
-  transition: border-color 0.35s ease, transform 0.35s var(--ease-out);
-  will-change: transform;
+  transition:
+    border-color 0.35s ease,
+    transform 0.35s var(--ease-out);
 }
 .tile:hover {
   border-color: var(--line);
@@ -151,7 +152,9 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-faint);
-  transition: border-color 0.35s ease, color 0.35s ease;
+  transition:
+    border-color 0.35s ease,
+    color 0.35s ease;
 }
 .tile:hover .tile__logo {
   border-color: var(--gold);
@@ -197,8 +200,15 @@
   animation: hintbar 2.2s var(--ease-out) infinite;
 }
 @keyframes hintbar {
-  0%, 100% { transform: scaleX(0.2); opacity: 0.4; }
-  50% { transform: scaleX(1); opacity: 1; }
+  0%,
+  100% {
+    transform: scaleX(0.2);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
 }
 
 /* ---------- C. DINE ---------- */
@@ -263,7 +273,9 @@
   gap: 0.3rem;
   padding: 1.35rem 1.1rem;
   border-top: 1px solid var(--line-soft);
-  transition: background 0.4s ease, padding-left 0.4s var(--ease-out);
+  transition:
+    background 0.4s ease,
+    padding-left 0.4s var(--ease-out);
 }
 .dine__item:last-child {
   border-bottom: 1px solid var(--line-soft);
@@ -439,8 +451,12 @@
   font-size: 0.7em;
 }
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 .events__title {
   font-size: var(--fs-h2);
@@ -459,7 +475,9 @@
   display: grid;
   gap: 0.7rem;
   align-content: start;
-  transition: border-color 0.35s ease, transform 0.35s var(--ease-out);
+  transition:
+    border-color 0.35s ease,
+    transform 0.35s var(--ease-out);
 }
 .ecard2:hover {
   border-color: var(--line);
@@ -524,6 +542,20 @@
   color: var(--gold);
   font-variant-numeric: tabular-nums;
 }
+.visit__contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-lead);
+  color: var(--gold);
+}
+.visit__contact a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
 .visit__parking {
   color: var(--ink-dim);
   max-width: 46ch;
@@ -583,7 +615,9 @@
   border: 1px solid var(--line-soft);
   border-radius: 8px;
   padding: 0.75rem 0.9rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
   resize: vertical;
 }
 .form__field input:focus,

@@ -5,7 +5,10 @@
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 9000;
-  transition: transform 0.5s var(--ease-out), background 0.4s ease, backdrop-filter 0.4s ease;
+  transition:
+    transform 0.5s var(--ease-out),
+    background 0.4s ease,
+    backdrop-filter 0.4s ease;
 }
 .nav.is-hidden {
   transform: translateY(-110%);
@@ -78,7 +81,9 @@
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   color: var(--gold);
-  transition: background 0.3s ease, color 0.3s ease;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
   white-space: nowrap;
 }
 .nav__cta:hover {
@@ -98,7 +103,9 @@
   width: 22px;
   height: 1.5px;
   background: var(--ink);
-  transition: transform 0.4s var(--ease-out), top 0.4s var(--ease-out);
+  transition:
+    transform 0.4s var(--ease-out),
+    top 0.4s var(--ease-out);
 }
 .nav__burger span:nth-child(1) {
   top: 18px;
@@ -124,8 +131,7 @@
   align-content: center;
   padding: 6rem var(--gutter) 3rem;
   background:
-    radial-gradient(90% 70% at 80% 0%, rgba(232, 178, 90, 0.09), transparent 60%),
-    rgba(14, 12, 10, 0.97);
+    radial-gradient(90% 70% at 80% 0%, rgba(232, 178, 90, 0.09), transparent 60%), rgba(14, 12, 10, 0.97);
   clip-path: inset(0 0 100% 0);
   visibility: hidden;
 }
@@ -148,7 +154,9 @@
   line-height: 1.1;
   color: var(--ink);
   width: fit-content;
-  transition: color 0.3s ease, padding-left 0.4s var(--ease-out);
+  transition:
+    color 0.3s ease,
+    padding-left 0.4s var(--ease-out);
 }
 .menu__nav a em {
   font-size: 0.8rem;

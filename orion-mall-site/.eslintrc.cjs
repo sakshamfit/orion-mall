@@ -12,7 +12,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['scripts/*.mjs'],
+      files: ['scripts/*.mjs', 'tests/*.mjs'],
       env: { node: true },
       rules: { 'no-console': 'off' },
     },

@@ -54,11 +54,21 @@
   animation: grain 0.9s steps(4) infinite;
 }
 @keyframes grain {
-  0% { transform: translate(0, 0); }
-  25% { transform: translate(-38px, 22px); }
-  50% { transform: translate(22px, -30px); }
-  75% { transform: translate(-14px, -14px); }
-  100% { transform: translate(0, 0); }
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-38px, 22px);
+  }
+  50% {
+    transform: translate(22px, -30px);
+  }
+  75% {
+    transform: translate(-14px, -14px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
 }
 
 /* ---------- overlays ---------- */
@@ -126,9 +136,16 @@
   transform-origin: top;
 }
 @keyframes cue {
-  0% { transform: scaleY(0); }
-  45% { transform: scaleY(1); }
-  100% { transform: scaleY(1); opacity: 0; }
+  0% {
+    transform: scaleY(0);
+  }
+  45% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 0;
+  }
 }
 .ov__line {
   font-family: var(--font-display);
@@ -208,7 +225,10 @@
   height: 7px;
   border-radius: 50%;
   background: rgba(232, 178, 90, 0.25);
-  transition: background 0.35s ease, transform 0.35s var(--ease-out), box-shadow 0.35s ease;
+  transition:
+    background 0.35s ease,
+    transform 0.35s var(--ease-out),
+    box-shadow 0.35s ease;
 }
 .floors__dot.is-active {
   background: var(--gold);

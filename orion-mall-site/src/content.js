@@ -89,8 +89,7 @@ export const BRANDS = Array.from({ length: 44 }, (_, i) => ({
 export const DINE = {
   kicker: 'Satisfying your culinary cravings',
   heading: 'Food courts & premium dining.',
-  copy:
-    'From quick bites at the food court to slow evenings at premium-dining restaurants — every craving has a floor of its own.',
+  copy: 'From quick bites at the food court to slow evenings at premium-dining restaurants — every craving has a floor of its own.',
   venues: [
     { name: PH('RESTAURANT_NAME_1'), kind: 'Premium dining', note: PH('RESTAURANT_NOTE_1') },
     { name: PH('RESTAURANT_NAME_2'), kind: 'Premium dining', note: PH('RESTAURANT_NOTE_2') },
@@ -106,22 +105,15 @@ export const ENTERTAIN = {
   cinema: {
     name: 'INOX',
     title: 'Multiplex cinema',
-    copy:
-      'Catch the latest releases on the big screen at the INOX multiplex — the city’s destination for movie nights.',
+    copy: 'Catch the latest releases on the big screen at the INOX multiplex — the city’s destination for movie nights.',
     cta: 'Book tickets',
     link: LINKS.tickets,
-    nowShowing: [
-      PH('MOVIE_NAME_1'),
-      PH('MOVIE_NAME_2'),
-      PH('MOVIE_NAME_3'),
-      PH('MOVIE_NAME_4'),
-    ],
+    nowShowing: [PH('MOVIE_NAME_1'), PH('MOVIE_NAME_2'), PH('MOVIE_NAME_3'), PH('MOVIE_NAME_4')],
   },
   gaming: {
     name: PH('GAMING_ZONE_NAME'),
     title: 'Kids’ gaming zone',
-    copy:
-      'Arcades, rides and play zones keep the youngest visitors busy for hours — while the grown-ups keep shopping.',
+    copy: 'Arcades, rides and play zones keep the youngest visitors busy for hours — while the grown-ups keep shopping.',
     cta: 'See what’s on',
     link: LINKS.website,
   },
@@ -130,13 +122,7 @@ export const ENTERTAIN = {
 export const EVENTS = {
   kicker: 'What’s on',
   heading: 'Events & offers.',
-  ticker: [
-    PH('OFFER_1'),
-    PH('OFFER_2'),
-    PH('OFFER_3'),
-    PH('OFFER_4'),
-    PH('OFFER_5'),
-  ],
+  ticker: [PH('OFFER_1'), PH('OFFER_2'), PH('OFFER_3'), PH('OFFER_4'), PH('OFFER_5')],
   cards: [
     { title: PH('EVENT_TITLE_1'), date: PH('EVENT_DATE_1'), copy: PH('EVENT_COPY_1') },
     { title: PH('EVENT_TITLE_2'), date: PH('EVENT_DATE_2'), copy: PH('EVENT_COPY_2') },
