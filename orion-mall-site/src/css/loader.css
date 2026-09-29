@@ -1,0 +1,60 @@
+/* ============================================================
+   loader.css — initial loading screen
+   ============================================================ */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(120% 90% at 50% 110%, #2b2115 0%, transparent 55%),
+    var(--bg);
+  text-align: center;
+}
+.loader__inner {
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+  padding: var(--gutter);
+}
+.loader__word {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  letter-spacing: 0.42em;
+  text-indent: 0.42em;
+  color: var(--ink);
+}
+.loader__city {
+  font-size: var(--fs-small);
+  letter-spacing: 0.5em;
+  text-indent: 0.5em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.loader__bar {
+  width: min(260px, 60vw);
+  height: 2px;
+  margin-top: 1.6rem;
+  background: var(--line-soft);
+  overflow: hidden;
+}
+.loader__fill {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gold-deep), var(--gold));
+}
+.loader__pct {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--ink-dim);
+  font-variant-numeric: tabular-nums;
+}
+.loader__hint {
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: 0.4rem;
+}

@@ -1,0 +1,182 @@
+[
+  {
+    "name": "page loads HTTP 200",
+    "pass": true,
+    "detail": "status 200"
+  },
+  {
+    "name": "loader hides after tier1 + 30%",
+    "pass": true,
+    "detail": "3651ms"
+  },
+  {
+    "name": "no console errors/warnings",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "CLS < 0.05",
+    "pass": true,
+    "detail": "CLS=0.0000"
+  },
+  {
+    "name": "hero canvas sized + ready",
+    "pass": true,
+    "detail": "{\"w\":1440,\"h\":900,\"cw\":1440,\"ready\":true}"
+  },
+  {
+    "name": "scrub changes canvas frames",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "overlays animated (one visible mid-scroll)",
+    "pass": true,
+    "detail": "[\"0\",\"0.6383\",\"0\",\"0\"]"
+  },
+  {
+    "name": "scrolled into content sections",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "no horizontal scroll after fast flick",
+    "pass": true,
+    "detail": "1440px vs 1440"
+  },
+  {
+    "name": "no errors after fast flick",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "canvas resizes correctly",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "no errors after resize mid-scroll",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "reload while scrolled works",
+    "pass": true,
+    "detail": "10190ms"
+  },
+  {
+    "name": "no errors after reload",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "memory growth < 25% over 3 cycles",
+    "pass": true,
+    "detail": "3351924 -> 3358000 bytes (0.2%)"
+  },
+  {
+    "name": "zero console errors/warnings (full session)",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "no horizontal scroll @360",
+    "pass": true,
+    "detail": "scrollWidth=360"
+  },
+  {
+    "name": "no console errors @360",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "no horizontal scroll @768",
+    "pass": true,
+    "detail": "scrollWidth=768"
+  },
+  {
+    "name": "no console errors @768",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "no horizontal scroll @1024",
+    "pass": true,
+    "detail": "scrollWidth=1024"
+  },
+  {
+    "name": "no console errors @1024",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "no horizontal scroll @1440",
+    "pass": true,
+    "detail": "scrollWidth=1440"
+  },
+  {
+    "name": "no console errors @1440",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "no horizontal scroll @1920",
+    "pass": true,
+    "detail": "scrollWidth=1920"
+  },
+  {
+    "name": "no console errors @1920",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "loader hides on Slow 4G + 4x CPU",
+    "pass": true,
+    "detail": "5621ms total"
+  },
+  {
+    "name": "no errors on throttled load",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "reduced-motion: static poster hero",
+    "pass": true,
+    "detail": "{\"posterVisible\":true,\"canvasHidden\":true,\"aboutOpacity\":\"1\",\"kickerOpacity\":\"1\"}"
+  },
+  {
+    "name": "reduced-motion: content readable",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "reduced-motion: hero stays static on scroll",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "reduced-motion: no console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "ambient WebGL canvas active (hi-concurrency)",
+    "pass": true,
+    "detail": "{\"w\":1440,\"h\":900,\"display\":\"block\"}"
+  },
+  {
+    "name": "ambient disabled on low-end device",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "ambient: no console errors",
+    "pass": true,
+    "detail": ""
+  },
+  {
+    "name": "teardown kills all ScrollTriggers",
+    "pass": true,
+    "detail": "before=39 after=0"
+  }
+]
