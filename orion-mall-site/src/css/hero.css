@@ -115,6 +115,49 @@
   text-transform: uppercase;
   color: var(--ink-dim);
 }
+.ov__actions {
+  margin-top: 1.5rem;
+  pointer-events: auto;
+  z-index: 10;
+}
+.hero__watch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 1.6rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(18, 16, 13, 0.75);
+  border: 1px solid var(--gold);
+  border-radius: 100px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    transform var(--dur) var(--ease-out),
+    background var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out);
+  cursor: pointer;
+}
+.hero__watch-btn:hover {
+  background: var(--gold);
+  color: #12100d;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(232, 178, 90, 0.35);
+}
+.hero__play-icon {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+  transition: transform var(--dur) var(--ease-out);
+}
+.hero__watch-btn:hover .hero__play-icon {
+  transform: scale(1.15);
+}
 .ov__cue {
   position: absolute;
   bottom: clamp(2rem, 6vh, 4rem);

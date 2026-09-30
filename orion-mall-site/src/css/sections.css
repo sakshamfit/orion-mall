@@ -719,3 +719,298 @@
   font-size: 0.78rem;
   color: var(--ink-faint);
 }
+
+/* ---------- VIDEO TOUR SECTION ---------- */
+.video-tour {
+  border-top: 1px solid var(--line-soft);
+  background: linear-gradient(to bottom, var(--bg), var(--bg-2) 50%, var(--bg));
+  position: relative;
+  overflow: hidden;
+}
+.video-tour__header {
+  margin-bottom: clamp(2rem, 4vw, 3.2rem);
+  max-width: 56ch;
+}
+.video-tour__title {
+  font-size: var(--fs-h2);
+  margin-block: 0.6rem 1rem;
+}
+.video-tour__copy {
+  color: var(--ink-dim);
+  font-size: var(--fs-lead);
+  line-height: 1.5;
+}
+.video-tour__player-box {
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  background: var(--bg-3);
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  transition: border-color 0.4s ease;
+}
+.video-tour__player-box:hover {
+  border-color: var(--line);
+}
+.video-tour__frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+}
+.video-tour__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.video-tour__video.is-hidden {
+  display: none;
+}
+.video-tour__iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+.video-tour__iframe.is-hidden {
+  display: none;
+}
+.video-tour__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  padding: 1.1rem 1.6rem;
+  background: linear-gradient(170deg, var(--bg-3), var(--bg-2));
+  border-top: 1px solid var(--line-soft);
+}
+.video-tour__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+.video-tour__badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(232, 178, 90, 0.12);
+  border: 1px solid rgba(232, 178, 90, 0.25);
+  border-radius: 4px;
+}
+.video-tour__caption {
+  font-size: 0.88rem;
+  color: var(--ink-dim);
+}
+.video-tour__tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.video-tour__tab {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink-dim);
+  border: 1px solid var(--line-soft);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.video-tour__tab:hover {
+  color: var(--gold);
+  border-color: var(--line);
+}
+.video-tour__tab.is-active {
+  color: #12100d;
+  background: var(--gold);
+  border-color: var(--gold);
+  font-weight: 600;
+}
+.video-tour__link {
+  font-size: 0.82rem;
+  color: var(--gold);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: color 0.25s ease;
+}
+.video-tour__link:hover {
+  color: var(--gold-soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- VIDEO MODAL ---------- */
+.vmodal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 3vw, 2.5rem);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.35s ease,
+    visibility 0.35s ease;
+}
+.vmodal.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.vmodal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 8, 6, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.vmodal__dialog {
+  position: relative;
+  z-index: 2;
+  width: min(94vw, 1040px);
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.85);
+  transform: scale(0.96) translateY(12px);
+  transition: transform 0.35s var(--ease-out);
+}
+.vmodal.is-open .vmodal__dialog {
+  transform: scale(1) translateY(0);
+}
+.vmodal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.4rem;
+  background: var(--bg-3);
+  border-bottom: 1px solid var(--line-soft);
+}
+.vmodal__title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.vmodal__badge {
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(232, 178, 90, 0.12);
+  border: 1px solid rgba(232, 178, 90, 0.25);
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+}
+.vmodal__title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+.vmodal__close {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line-soft);
+  color: var(--ink-dim);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.vmodal__close:hover {
+  background: rgba(232, 178, 90, 0.15);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.vmodal__body {
+  position: relative;
+  background: #000;
+}
+.vmodal__video-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+}
+.vmodal__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.vmodal__video.is-hidden {
+  display: none;
+}
+.vmodal__iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+.vmodal__iframe.is-hidden {
+  display: none;
+}
+.vmodal__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.4rem;
+  background: var(--bg-3);
+  border-top: 1px solid var(--line-soft);
+}
+.vmodal__tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.vmodal__tab {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.8rem;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ink-dim);
+  border: 1px solid var(--line-soft);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.vmodal__tab:hover {
+  color: var(--gold);
+  border-color: var(--line);
+}
+.vmodal__tab.is-active {
+  color: #12100d;
+  background: var(--gold);
+  border-color: var(--gold);
+  font-weight: 600;
+}
+.vmodal__ext {
+  font-size: 0.8rem;
+  color: var(--ink-dim);
+  transition: color 0.25s ease;
+}
+.vmodal__ext:hover {
+  color: var(--gold);
+}

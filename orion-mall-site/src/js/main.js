@@ -19,6 +19,7 @@ import { initHero } from './hero.js';
 import { initNav } from './nav.js';
 import { initCursor } from './cursor.js';
 import { initSections } from './sections.js';
+import { initVideoPlayer } from './video-player.js';
 import { onIdle } from './utils.js';
 // three-layer is code-split below (dynamic import) so three.js lands in a lazy
 // chunk and the initial payload stays small.
@@ -72,6 +73,8 @@ async function boot() {
     teardowns.push(initCursor());
     await new Promise((r) => setTimeout(r, 0));
     teardowns.push(initSections());
+    await new Promise((r) => setTimeout(r, 0));
+    teardowns.push(initVideoPlayer());
     ScrollTrigger.refresh();
   };
   onIdle(initDeferred, 250);
@@ -86,7 +89,7 @@ async function boot() {
       })
       .catch((err) => console.warn('[ambient] failed to initialise', err));
 
-  const firstSection = document.getElementById('about');
+  const firstSection = document.getElementById('video-tour') || document.getElementById('about');
   if (firstSection && 'IntersectionObserver' in window) {
     const ambientIO = new IntersectionObserver(
       (entries) => {

@@ -45,11 +45,13 @@
         "description": "Orion Mall, Gorakhpur is a hub for Food, Shopping & Entertainment — spread over 2,00,000+ sq. ft. in Mohaddipur, near Radisson Blu, with food courts, premium dining, 40+ national and international brands, an INOX multiplex, a kids’ gaming zone and parking.",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "Mohaddipur, near Radisson Blu",
+          "streetAddress": "First Floor, Orion Mall, Mohaddipur, near Radisson Blu Hotel",
           "addressLocality": "Gorakhpur",
           "addressRegion": "Uttar Pradesh",
+          "postalCode": "273008",
           "addressCountry": "IN"
         },
+        "telephone": "+919517636465",
         "amenityFeature": [
           { "@type": "LocationFeatureSpecification", "name": "INOX multiplex cinema", "value": true },
           { "@type": "LocationFeatureSpecification", "name": "Kids' gaming zone", "value": true },
@@ -57,9 +59,14 @@
           { "@type": "LocationFeatureSpecification", "name": "Premium dining restaurants", "value": true },
           { "@type": "LocationFeatureSpecification", "name": "Parking", "value": true }
         ],
+        "openingHours": ["Mo-Su 10:30-23:00"],
         "slogan": "Life is all about having a good time.",
         "url": "https://orionmallgorakhpur.com/",
-        "sameAs": ["https://www.facebook.com/orionmallgkp/"]
+        "sameAs": [
+          "https://www.facebook.com/orionmallgkp/",
+          "https://www.instagram.com/orion.mall/",
+          "https://www.youtube.com/@orionmall5150"
+        ]
       }
     </script>
   </head>
@@ -95,6 +102,7 @@
         </a>
         <nav class="nav__links" aria-label="Primary">
           <a href="#about" data-cursor="link">About</a>
+          <a href="#video-tour" data-cursor="link">Video Tour</a>
           <a href="#shop" data-cursor="link">Shop</a>
           <a href="#dine" data-cursor="link">Dine</a>
           <a href="#entertain" data-cursor="link">Entertain</a>
@@ -118,15 +126,17 @@
     <div class="menu" id="menu-overlay" aria-hidden="true">
       <nav class="menu__nav" aria-label="Overlay">
         <a href="#about" data-cursor="link"><em>01</em> About</a>
-        <a href="#shop" data-cursor="link"><em>02</em> Shop</a>
-        <a href="#dine" data-cursor="link"><em>03</em> Dine</a>
-        <a href="#entertain" data-cursor="link"><em>04</em> Entertain</a>
-        <a href="#events" data-cursor="link"><em>05</em> Events</a>
-        <a href="#visit" data-cursor="link"><em>06</em> Visit</a>
+        <a href="#video-tour" data-cursor="link"><em>02</em> Video Tour</a>
+        <a href="#shop" data-cursor="link"><em>03</em> Shop</a>
+        <a href="#dine" data-cursor="link"><em>04</em> Dine</a>
+        <a href="#entertain" data-cursor="link"><em>05</em> Entertain</a>
+        <a href="#events" data-cursor="link"><em>06</em> Events</a>
+        <a href="#visit" data-cursor="link"><em>07</em> Visit</a>
       </nav>
       <div class="menu__foot">
         <a href="https://orionmallgorakhpur.com/" target="_blank" rel="noopener" data-cursor="link">orionmallgorakhpur.com</a>
         <a href="https://www.facebook.com/orionmallgkp/" target="_blank" rel="noopener" data-cursor="link">Facebook</a>
+        <a href="https://www.instagram.com/orion.mall/" target="_blank" rel="noopener" data-cursor="link">Instagram</a>
       </div>
     </div>
 
@@ -152,6 +162,21 @@
           <div class="ov" data-ov="1">
             <h1 class="ov__wordmark"><span>ORION</span><span>MALL</span></h1>
             <p class="ov__city">Gorakhpur</p>
+            <div class="ov__actions">
+              <button
+                class="hero__watch-btn"
+                id="hero-watch-btn"
+                type="button"
+                aria-haspopup="dialog"
+                data-open-video-modal
+                data-cursor="link"
+              >
+                <svg class="hero__play-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                <span>Watch Hero Video</span>
+              </button>
+            </div>
             <p class="ov__cue"><span class="ov__cue-line"></span>Scroll to enter</p>
           </div>
           <div class="ov" data-ov="2">
@@ -216,6 +241,67 @@
         </div>
       </section>
 
+      <!-- ================= VIDEO TOUR (EMBEDDED HERO VIDEO) ================= -->
+      <section class="section video-tour" id="video-tour" aria-labelledby="video-tour-title">
+        <div class="wrap">
+          <div class="video-tour__header">
+            <p class="kicker" data-reveal>Official Walkthrough</p>
+            <h2 class="video-tour__title" id="video-tour-title" data-reveal>Experience Orion Mall in motion.</h2>
+            <p class="video-tour__copy" data-reveal>
+              Watch the official walkthrough video from orionmallgorakhpur.com — explore our 2,00,000+ sq. ft. destination for food, shopping, and entertainment.
+            </p>
+          </div>
+          <div class="video-tour__player-box" data-reveal>
+            <div class="video-tour__frame">
+              <video
+                class="video-tour__video"
+                id="walkthrough-video"
+                controls
+                playsinline
+                preload="metadata"
+                poster="/frames/f_0001.webp"
+                aria-label="Orion Mall Gorakhpur Hero Video"
+              >
+                <source src="https://orionmallgorakhpur.com/wp-content/uploads/2023/06/Pexels-Videos-2830.mp4" type="video/mp4" />
+                Your browser does not support HTML5 video.
+              </video>
+              <iframe
+                class="video-tour__iframe is-hidden"
+                id="walkthrough-iframe"
+                data-src="https://www.youtube-nocookie.com/embed/ZMde-4KHvGk?rel=0&amp;modestbranding=1"
+                title="Orion Mall, Gorakhpur — Video Walkthrough"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+            <div class="video-tour__bar">
+              <div class="video-tour__meta">
+                <span class="video-tour__badge">HD Walkthrough</span>
+                <span class="video-tour__caption">Orion Mall, Gorakhpur · Hero Video</span>
+              </div>
+              <div class="video-tour__tabs" role="tablist" aria-label="Video player sources">
+                <button class="video-tour__tab is-active" id="video-tab-mp4" type="button" role="tab" aria-selected="true">
+                  Direct Video (MP4)
+                </button>
+                <button class="video-tour__tab" id="video-tab-yt" type="button" role="tab" aria-selected="false">
+                  YouTube Player
+                </button>
+              </div>
+              <a
+                class="video-tour__link"
+                href="https://www.youtube.com/watch?v=ZMde-4KHvGk"
+                target="_blank"
+                rel="noopener"
+                data-cursor="link"
+              >
+                Watch on YouTube ↗
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- ================= B. SHOP (horizontal gallery) ================= -->
       <section class="section shop" id="shop" aria-labelledby="shop-title">
         <div class="shop__pin" id="shop-pin">
@@ -264,20 +350,27 @@
               <div class="ecard__body">
                 <h3>INOX <span>multiplex cinema</span></h3>
                 <p>Catch the latest releases on the big screen at the INOX multiplex — the city’s destination for movie nights.</p>
-                <a class="btn" href="https://orionmallgorakhpur.com/" data-cursor="link" data-placeholder>Book tickets &lt;&lt;LINK_BUY_TICKETS&gt;&gt;</a>
+                <a
+                  class="btn"
+                  href="https://in.bookmyshow.com/cinemas/gorakhpur/inox-orion-mall-gorakhpur/buytickets/IOMM/20250912"
+                  target="_blank"
+                  rel="noopener"
+                  data-cursor="link"
+                  >Book tickets at INOX</a
+                >
               </div>
             </article>
             <article class="ecard" data-tilt data-reveal>
               <div class="ecard__media ecard__media--gaming" aria-hidden="true"></div>
               <div class="ecard__body">
-                <h3 data-placeholder>&lt;&lt;GAMING_ZONE_NAME&gt;&gt; <span>kids’ gaming zone</span></h3>
-                <p>Arcades, rides and play zones keep the youngest visitors busy for hours — while the grown-ups keep shopping.</p>
-                <a class="btn btn--ghost" href="https://orionmallgorakhpur.com/" data-cursor="link">What’s on</a>
+                <h3>Fun Unlimited – Game Zone <span>kids’ gaming zone</span></h3>
+                <p>Arcades, rides, bowling alley and play zones keep the youngest visitors busy for hours — while the grown-ups keep shopping.</p>
+                <a class="btn btn--ghost" href="https://orionmallgorakhpur.com/fun-zone/" target="_blank" rel="noopener" data-cursor="link">Explore Game Zone</a>
               </div>
             </article>
           </div>
           <div class="nowshowing" aria-label="Now showing">
-            <p class="nowshowing__label">Now showing <span data-placeholder>&lt;&lt;MOVIE_NAME_1&gt;&gt;</span></p>
+            <p class="nowshowing__label">Now showing <span>Alpha (UA16+) · The Odyssey (A) · Welcome To The Jungle · Main Vaapas Aaunga</span></p>
           </div>
         </div>
       </section>
@@ -305,31 +398,33 @@
             <p class="kicker" data-reveal>Plan your visit</p>
             <h2 class="visit__title" id="visit-title" data-reveal>Visit us.</h2>
             <address class="visit__address" data-reveal>
-              Orion Mall, Mohaddipur<br />
-              near Radisson Blu<br />
-              Gorakhpur, Uttar Pradesh
+              First Floor, Orion Mall, Mohaddipur<br />
+              near Radisson Blu Hotel<br />
+              Gorakhpur, Uttar Pradesh 273008
             </address>
             <dl class="visit__hours" data-reveal>
-              <div><dt data-placeholder>&lt;&lt;HOURS_WEEKDAYS_LABEL&gt;&gt;</dt><dd data-placeholder>&lt;&lt;HOURS_WEEKDAYS&gt;&gt;</dd></div>
-              <div><dt data-placeholder>&lt;&lt;HOURS_WEEKEND_LABEL&gt;&gt;</dt><dd data-placeholder>&lt;&lt;HOURS_WEEKEND&gt;&gt;</dd></div>
+              <div><dt>Monday – Friday</dt><dd>10:30 AM – 11:00 PM</dd></div>
+              <div><dt>Saturday – Sunday</dt><dd>10:30 AM – 11:00 PM</dd></div>
             </dl>
             <p class="visit__contact" data-reveal>
-              <a href="tel:PLACEHOLDER" data-placeholder>&lt;&lt;PHONE_NUMBER&gt;&gt;</a>
+              <a href="tel:+919517636465" data-cursor="link">+91 95176 36465</a>
               <span aria-hidden="true">·</span>
-              <a href="mailto:placeholder@example.com" data-placeholder>&lt;&lt;EMAIL_ADDRESS&gt;&gt;</a>
+              <a href="mailto:info@orionmallgorakhpur.com" data-cursor="link">info@orionmallgorakhpur.com</a>
             </p>
             <p class="visit__parking" data-reveal>
-              <strong>Parking:</strong> Spacious multi-level parking structure with ample parking space for visitors.
+              <strong>Parking:</strong> Spacious multi-level parking structure with capacity for 800+ vehicles.
             </p>
             <ul class="visit__amenities" data-reveal>
-              <li>Multi-level parking</li>
-              <li>Escalators between floors</li>
-              <li>First-aid station</li>
-              <li>Information desk</li>
+              <li>Multi-level parking facility</li>
+              <li>High-speed escalators &amp; elevators</li>
+              <li>First-aid &amp; medical response desk</li>
+              <li>Information &amp; visitor help desk</li>
+              <li>Free high-speed Wi-Fi</li>
+              <li>Wheelchair accessibility</li>
             </ul>
             <p class="visit__links" data-reveal>
-              <a class="btn" href="https://maps.app.goo.gl/q9WAoWzD8F9oH7JHA" target="_blank" rel="noopener" data-cursor="link" data-placeholder
-                >Get directions &lt;&lt;MAP_LINK_DIRECTIONS&gt;&gt;</a
+              <a class="btn" href="https://maps.app.goo.gl/q9WAoWzD8F9oH7JHA" target="_blank" rel="noopener" data-cursor="link"
+                >Get directions on Google Maps</a
               >
               <a class="btn btn--ghost" href="https://www.facebook.com/orionmallgkp/" target="_blank" rel="noopener" data-cursor="link">Facebook page</a>
             </p>
@@ -370,6 +465,7 @@
           <nav class="footer__col" aria-label="Explore">
             <h2>Explore</h2>
             <a href="#about" data-cursor="link">About</a>
+            <a href="#video-tour" data-cursor="link">Video Tour</a>
             <a href="#shop" data-cursor="link">Shop</a>
             <a href="#dine" data-cursor="link">Dine</a>
             <a href="#entertain" data-cursor="link">Entertain</a>
@@ -377,18 +473,81 @@
             <a href="#visit" data-cursor="link">Visit</a>
           </nav>
           <div class="footer__col">
-            <h2>Visit</h2>
+            <h2>Connect &amp; Visit</h2>
+            <a href="https://maps.app.goo.gl/q9WAoWzD8F9oH7JHA" target="_blank" rel="noopener" data-cursor="link">Directions (Google Maps)</a>
             <a href="https://orionmallgorakhpur.com/" target="_blank" rel="noopener" data-cursor="link">orionmallgorakhpur.com</a>
-            <a href="https://www.facebook.com/orionmallgkp/" target="_blank" rel="noopener" data-cursor="link">Facebook</a>
-            <span data-placeholder>&lt;&lt;SOCIAL_INSTAGRAM&gt;&gt;</span>
+            <a href="https://www.facebook.com/orionmallgkp/" target="_blank" rel="noopener" data-cursor="link">Facebook (@orionmallgkp)</a>
+            <a href="https://www.instagram.com/orion.mall/" target="_blank" rel="noopener" data-cursor="link">Instagram (@orion.mall)</a>
+            <a href="https://www.youtube.com/@orionmall5150" target="_blank" rel="noopener" data-cursor="link">YouTube Channel</a>
           </div>
         </div>
         <p class="footer__legal">
           <span>© <span id="year">2026</span> Orion Mall, Gorakhpur. All rights reserved.</span>
-          <span data-placeholder>&lt;&lt;CREDIT_LINE&gt;&gt;</span>
+          <span>Architecture by 42 MM Architect · Developed by Ambe Proptech Pvt. Ltd.</span>
         </p>
       </div>
     </footer>
+
+    <!-- ================= VIDEO MODAL ================= -->
+    <div
+      class="vmodal"
+      id="video-modal"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Orion Mall Hero Video Walkthrough"
+    >
+      <div class="vmodal__backdrop" id="video-modal-backdrop"></div>
+      <div class="vmodal__dialog">
+        <div class="vmodal__header">
+          <div class="vmodal__title-wrap">
+            <span class="vmodal__badge">Hero Video</span>
+            <h3 class="vmodal__title">Orion Mall, Gorakhpur — Official Walkthrough</h3>
+          </div>
+          <button class="vmodal__close" id="video-modal-close" type="button" aria-label="Close video modal" data-cursor="link">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="vmodal__body">
+          <div class="vmodal__video-wrap">
+            <video class="vmodal__video" id="modal-video-el" controls playsinline preload="none" poster="/frames/f_0001.webp">
+              <source src="https://orionmallgorakhpur.com/wp-content/uploads/2023/06/Pexels-Videos-2830.mp4" type="video/mp4" />
+              Your browser does not support HTML5 video.
+            </video>
+            <iframe
+              class="vmodal__iframe is-hidden"
+              id="modal-video-iframe"
+              data-src="https://www.youtube-nocookie.com/embed/ZMde-4KHvGk?autoplay=1&amp;rel=0&amp;modestbranding=1"
+              title="Orion Mall Gorakhpur Hero Video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+        <div class="vmodal__footer">
+          <div class="vmodal__tabs">
+            <button class="vmodal__tab is-active" id="modal-tab-mp4" type="button">Direct MP4 Video</button>
+            <button class="vmodal__tab" id="modal-tab-yt" type="button">YouTube Embed</button>
+          </div>
+          <a class="vmodal__ext" href="https://orionmallgorakhpur.com/" target="_blank" rel="noopener" data-cursor="link">
+            orionmallgorakhpur.com ↗
+          </a>
+        </div>
+      </div>
+    </div>
 
     <script type="module" src="/src/js/main.js"></script>
   </body>

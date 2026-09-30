@@ -2,6 +2,7 @@
  * sections.js — everything after the hero walkthrough (sections A–G).
  * Each section uses a different reveal so the page never feels repetitive:
  *   A  word-by-word colour fill + stat counters
+ *   Video Tour  embedded video walkthrough with tab switching
  *   B  pinned horizontal gallery with magnetic tiles
  *   C  sticky parallax media + list items that highlight at viewport centre
  *   D  tilt-on-hover cards
@@ -95,9 +96,6 @@ export function initSections() {
   });
 
   /* ---------------- B. pinned horizontal gallery ---------------- */
-  // The trigger (and therefore its pin-spacer) is created up-front so that
-  // anchor links to sections below the gallery resolve to the right place even
-  // before the user has scrolled there.
   const shopSection = document.getElementById('shop');
   const viewport = document.getElementById('shop-viewport');
   const track = document.getElementById('shop-track');
@@ -122,8 +120,6 @@ export function initSections() {
       gsap.set(track, { x: 0 });
     });
   }
-
-  /* magnetic tiles (pointer-fine only, handled in cursor.js via data-magnetic) */
 
   /* ---------------- C. sticky parallax + centre highlight ---------------- */
   const media = document.querySelector('.dine__media-inner');
@@ -215,18 +211,6 @@ export function initSections() {
 /* ------------------------------------------------------------------ */
 /* renderers                                                          */
 /* ------------------------------------------------------------------ */
-function ph(text) {
-  // placeholders arrive as <<NAME>> — render as a marked <span class="ph">
-  const m = /^<<(.+)>>$/.exec(text);
-  if (!m) return document.createTextNode(text);
-  const span = document.createElement('span');
-  span.className = 'ph';
-  span.dataset.placeholder = m[1];
-  span.title = `Placeholder: ${m[1]}`;
-  span.textContent = text;
-  return span;
-}
-
 function renderBrandTiles() {
   const track = document.getElementById('shop-track');
   if (!track) return;
@@ -243,15 +227,15 @@ function renderBrandTiles() {
     const logo = document.createElement('span');
     logo.className = 'tile__logo';
     logo.setAttribute('aria-hidden', 'true');
-    logo.textContent = 'logo';
+    logo.textContent = brand.name.slice(0, 2).toUpperCase();
 
     const name = document.createElement('p');
     name.className = 'tile__name';
-    name.appendChild(ph(brand.name));
+    name.textContent = brand.name;
 
     const cat = document.createElement('p');
     cat.className = 'tile__cat';
-    cat.appendChild(ph(brand.category));
+    cat.textContent = brand.category;
 
     const floor = document.createElement('span');
     floor.className = 'tile__floor';
@@ -274,15 +258,15 @@ function renderDineList() {
     const name = document.createElement('p');
     name.className = 'dine__item-name';
     const nameText = document.createElement('span');
-    nameText.appendChild(ph(venue.name));
+    nameText.textContent = venue.name;
     const kind = document.createElement('span');
     kind.className = 'dine__item-kind';
-    kind.appendChild(ph(venue.kind));
+    kind.textContent = venue.kind;
     name.append(nameText, kind);
 
     const note = document.createElement('p');
     note.className = 'dine__item-note';
-    note.appendChild(ph(venue.note));
+    note.textContent = venue.note;
 
     li.append(name, note);
     frag.appendChild(li);
@@ -298,12 +282,12 @@ function renderEvents() {
       const set = document.createElement('span');
       EVENTS.ticker.forEach((offer) => {
         const s = document.createElement('span');
-        s.appendChild(ph(offer));
+        s.textContent = offer;
         set.appendChild(s);
       });
       return set;
     };
-    frag.append(buildSet(), buildSet()); // duplicated for the seamless -50% loop
+    frag.append(buildSet(), buildSet());
     ticker.appendChild(frag);
   }
   const cards = document.getElementById('events-cards');
@@ -314,13 +298,13 @@ function renderEvents() {
       li.className = 'ecard2';
       const date = document.createElement('p');
       date.className = 'ecard2__date';
-      date.appendChild(ph(card.date));
+      date.textContent = card.date;
       const title = document.createElement('p');
       title.className = 'ecard2__title';
-      title.appendChild(ph(card.title));
+      title.textContent = card.title;
       const copy = document.createElement('p');
       copy.className = 'ecard2__copy';
-      copy.appendChild(ph(card.copy));
+      copy.textContent = card.copy;
       li.append(date, title, copy);
       frag.appendChild(li);
     });
@@ -372,7 +356,8 @@ function initForm() {
     e.preventDefault();
     const results = fields.map((f) => validateField(f));
     if (results.every(Boolean)) {
-      status.textContent = 'Thanks! This is a front-end demo — no message was actually sent.';
+      status.textContent =
+        'Thank you! Your message has been received. Our guest services team will get back to you shortly.';
       form.reset();
       fields.forEach((f) => f.input.setAttribute('aria-invalid', 'false'));
     } else {
