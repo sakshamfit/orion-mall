@@ -1,0 +1,13 @@
+{
+  "generatedBy": "scripts/build-frames.mjs",
+  "desktop": {
+    "count": 144,
+    "digits": 4,
+    "dir": "frames"
+  },
+  "mobile": {
+    "count": 60,
+    "digits": 4,
+    "dir": "frames-m"
+  }
+}
