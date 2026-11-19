@@ -1,0 +1,8 @@
+/* Consistent high-contrast serif throughout the Orion preview. */
+html, body, body * { font-family: 'Playfair Display', Georgia, serif !important; }
+input, textarea, select, button { font-family: 'Playfair Display', Georgia, serif !important; }
+h1, h2, h3, h4, h5, h6 { font-weight: 700; }
+h1 em, h2 em, h3 em { font-style: normal; font-weight: inherit; }
+/* The footer wordmark needs room for the wider serif letterforms. */
+.orion-word { font-size: clamp(80px, 19vw, 230px); letter-spacing: -.055em; }
+@media (max-width: 700px) { .orion-word { font-size: 21vw; } }

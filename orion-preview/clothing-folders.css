@@ -1,0 +1,99 @@
+.clothing-folders { padding-top: 30px; padding-bottom: 65px; }
+.clothing-folders > h2 { font-family: 'Playfair Display', serif; font-weight: 500; font-size: clamp(36px, 4vw, 58px); line-height: 1.08; margin: 15px 0; }
+.clothing-folder-intro { color: #6e6a60; max-width: 600px; }
+.clothing-floor { margin-top: 50px; }
+.clothing-floor h3 { font: 500 30px/1.2 'Playfair Display', serif; border-bottom: 1px solid #ddd7ca; padding-bottom: 16px; }
+.clothing-folder-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 30px; align-items: start; }
+.glass-folder-card { min-width: 0; }
+.glass-folder-object { height: 0; padding-bottom: 85%; position: relative; isolation: isolate; perspective: 900px; margin-top: 20px; }
+.glass-folder-back { position: absolute; inset: 7% 0 0; border-radius: 20px; overflow: hidden; background: #d7d7d0; box-shadow: 0 16px 35px #2427202c; }
+.glass-folder-back:before { content: ''; position: absolute; z-index: 1; inset: 0; background: linear-gradient(transparent,#181c1a33); }
+.glass-folder-back img { width: 100%; height: 100%; object-fit: cover; }
+.glass-folder-stack { position: absolute; inset: 0; pointer-events: none; }
+.glass-folder-stack img { position: absolute; width: 75%; height: 64%; left: 12.5%; top: 18%; border-radius: 12px; border: 3px solid #fff; object-fit: cover; box-shadow: 0 6px 15px #0003; transform: translate(calc(var(--slot) * 5px),calc(var(--slot) * -5px)) rotate(calc(var(--slot) * 2deg)); transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+.glass-folder-object:hover .glass-folder-stack img, .glass-folder-object:focus-within .glass-folder-stack img, .glass-folder-object[data-open] .glass-folder-stack img { transform: translate(calc(var(--slot) * 12px),-20px) rotate(calc(var(--slot) * 4deg)); }
+.glass-folder-front { position: absolute; bottom: 0; left: 0; width: 100%; height: 59%; border: 1px solid #ffffffb5; border-radius: 22px 22px 20px 20px; display: flex; align-items: end; justify-content: space-between; gap: 8px; padding: 22px; color: #18201b; text-align: left; background: linear-gradient(160deg,#ffffffa0,#f8faf1e8); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); box-shadow: inset 0 1px #fff, 0 12px 24px #1c292329; cursor: pointer; transform-origin: bottom; transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+.glass-folder-object:hover .glass-folder-front, .glass-folder-object:focus-within .glass-folder-front { transform: rotateX(-8deg); }
+.glass-folder-object[data-open] .glass-folder-front { transform: rotateX(-14deg); }
+.glass-folder-front strong, .glass-folder-front small { display: block; }
+.glass-folder-front strong { font-size: clamp(16px,1.5vw,20px); line-height: 1.2; }
+.glass-folder-front small { font-size: 11px; margin-top: 6px; color: #4f5a51; }
+.glass-folder-front b { flex: 0 0 36px; width: 36px; height: 36px; border: 1px solid #728077; border-radius: 50%; display: grid; place-items: center; font-size: 22px; font-weight: 400; }
+.glass-folder-front:focus-visible, .glass-folder-photos button:focus-visible { outline: 3px solid #9b7a3b; outline-offset: 4px; }
+.glass-folder-contents { margin-top: 12px; }
+.glass-folder-contents[hidden] { display: none; }
+.glass-folder-contents p { font-size: 12px; color: #6e6a60; }
+.glass-folder-photos { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 6px; }
+.glass-folder-photos button { padding: 0; border: 0; aspect-ratio: 1; cursor: pointer; background: #eae6de; }
+.glass-folder-photos img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.folder-photo-dialog { border: 0; padding: 16px; background: #f8f7f2; max-width: min(900px,95vw); max-height: 95vh; }
+.folder-photo-dialog::backdrop { background: #101510dc; }
+.folder-photo-dialog button { position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; border: 0; border-radius: 50%; background: white; font-size: 26px; cursor: pointer; }
+.folder-photo-dialog figure { margin: 0; }
+.folder-photo-dialog img { display: block; max-width: 100%; max-height: 78vh; object-fit: contain; }
+.folder-photo-dialog figcaption { padding-top: 10px; font-size: 13px; }
+@media(max-width: 850px) { .clothing-folder-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; } }
+@media(max-width: 480px) { .clothing-folder-grid { grid-template-columns: 1fr; } .glass-folder-object { max-width: 360px; padding-bottom: min(85%, 306px); } }
+@media(prefers-reduced-motion: reduce) { .glass-folder-front,.glass-folder-stack img { transition: none; } }
+/* Apply the folders directly to the imported clothing directory. */
+.clothing-folder-directory { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 26px; align-items: start; }
+.clothing-folder-directory > h1 { grid-column: 1 / -1; margin: 0 0 8px; }
+.clothing-folder-directory .store-listing { background: transparent; border: 0; padding: 0; margin: 0; overflow: visible; box-shadow: none; min-width: 0; }
+.clothing-folder-directory .glass-folder-object { margin-top: 0; }
+.clothing-folder-details { margin: 16px 0 0; padding: 20px; background: #fff; border: 1px solid #e4e5dd; border-radius: 10px; line-height: 1.65; }
+.clothing-folder-details[hidden] { display: none; }
+.clothing-folder-details .clothing-folder-brand-name { font-size: 25px; margin: 0 0 8px; }
+.clothing-folder-details > h3:not(.clothing-folder-brand-name) { font: 700 10px 'DM Sans',sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #89968a; margin: 0 0 15px; }
+.clothing-folder-details > h2 { font-size: 20px; margin: 18px 0 8px; }
+.clothing-folder-details > img { display: block; max-width: 150px; max-height: 80px; width: auto; height: auto; margin: 12px 0; }
+.clothing-folder-details .store-gallery { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 6px; }
+.clothing-folder-directory .clothing-folder-details .store-gallery figure img { height: 120px; }
+.clothing-folder-details ul { grid-template-columns: 1fr; overflow-wrap: anywhere; }
+@media(max-width: 850px) { .clothing-folder-directory { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media(max-width: 520px) { .clothing-folder-directory { grid-template-columns: 1fr; } .clothing-folder-directory .glass-folder-object { max-width: none; padding-bottom: 85%; } }
+/* Store logo on the glass; original business details stay visible below. */
+.clothing-folder-directory .glass-folder-front { display: flex; flex-direction: column; align-items: stretch; justify-content: space-between; padding: 16px 20px; }
+.glass-folder-logo { display: flex; flex: 1; align-items: center; justify-content: center; min-height: 0; }
+.glass-folder-logo img { display: block; max-width: 78%; max-height: 70px; width: auto; height: auto; object-fit: contain; background: rgba(255,255,255,.8); border-radius: 4px; padding: 4px; }
+.glass-folder-logo strong { font-size: clamp(16px,1.5vw,20px); text-align: center; }
+.glass-folder-front-bottom { display: flex; align-items: end; justify-content: space-between; gap: 8px; }
+.folder-store-photos { margin-top: 14px; padding: 12px; border: 1px solid #e4e5dd; border-radius: 10px; background: #fff; }
+.folder-store-photos[hidden], .clothing-folder-details > img[hidden] { display: none; }
+.clothing-folder-directory .folder-store-photos .store-gallery { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 6px; margin: 0; }
+.clothing-folder-directory .folder-store-photos .store-gallery figure img { height: 120px; }
+.clothing-folder-details { border: 0; padding: 14px 2px 25px; background: transparent; border-radius: 0; }
+.clothing-folder-details > .store-brand-logo { display: block; width: auto; max-width: 150px; height: auto; max-height: 75px; object-fit: contain; margin: 2px 0 18px; }
+/* Let the pictures lift out of the glass pocket when the folder opens. */
+.clothing-folder-directory .store-listing:has(.glass-folder-object[data-open]) { position: relative; z-index: 2; }
+.glass-folder-object[data-open] .glass-folder-stack img { transform: translate(calc(var(--slot) * 16px), -45%) rotate(calc(var(--slot) * 6deg)); }
+.folder-photo-hint { margin: 0 0 10px; font-size: 12px; color: #657064; }
+.folder-photo-thumb { display: block; width: 100%; border: 0; padding: 0; cursor: zoom-in; background: #edf0e8; }
+.folder-photo-thumb:focus-visible,.folder-photo-dialog button:focus-visible { outline: 3px solid #9b7a3b; outline-offset: 2px; }
+.folder-photo-dialog img { width: auto; height: auto; }
+/* The exposed photo sheets are real buttons, not decorative images. */
+.glass-folder-stack { z-index: 1; }
+.glass-folder-front { z-index: 2; }
+.glass-folder-stack .glass-folder-peek { position: absolute; width: 75%; height: 64%; left: 12.5%; top: 18%; padding: 0; border: 3px solid white; border-radius: 12px; overflow: hidden; cursor: zoom-in; pointer-events: auto; background: #eee; box-shadow: 0 6px 15px #0003; transform: translate(calc(var(--slot) * 5px),calc(var(--slot) * -5px)) rotate(calc(var(--slot) * 2deg)); transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+.glass-folder-stack .glass-folder-peek img { display: block; position: static; width: 100%; height: 100%; max-width: none; border: 0; border-radius: 0; object-fit: cover; transform: none !important; box-shadow: none; }
+.glass-folder-object:hover .glass-folder-peek, .glass-folder-object:focus-within .glass-folder-peek { transform: translate(calc(var(--slot) * 12px),-20px) rotate(calc(var(--slot) * 4deg)); }
+.glass-folder-object[data-open] .glass-folder-peek { transform: translate(calc(var(--slot) * 16px),-45%) rotate(calc(var(--slot) * 6deg)); }
+.glass-folder-peek:focus-visible { outline: 3px solid #9b7a3b; outline-offset: 3px; }
+.folder-photo-dialog { width: min(1000px, 96vw); max-width: 1000px; max-height: 95vh; padding: 0; background: #171c1a; color: #f6f7f4; overflow: auto; }
+.folder-photo-dialog > button { z-index: 10; background: #fff; color: #171c1a; }
+.warp-photo-viewer { padding: 26px 24px 22px; text-align: center; }
+.warp-photo-heading span { color: #b5c2b5; font-size: 10px; letter-spacing: .16em; }
+.warp-photo-heading h2 { color: #fff; font: 500 clamp(26px,4vw,42px)/1.1 'Playfair Display',serif; margin: 8px 48px; }
+.warp-photo-heading p { margin: 8px 0; color: #c9d2c9; font-size: 12px; }
+.warp-photo-stage { height: min(58vh,530px); position: relative; display: grid; place-items: center; perspective: 900px; overflow: hidden; touch-action: pan-y; }
+.warp-photo-current { position: relative; z-index: 2; margin: 0; width: min(76%,720px); height: 100%; display: flex; align-items: center; justify-content: center; }
+.warp-photo-current img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; box-shadow: 0 12px 40px #0008; }
+.warp-photo-current figcaption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.warp-photo-side { position: absolute; top: 12%; width: 30%; height: 76%; opacity: .32; filter: blur(1px); overflow: hidden; }
+.warp-photo-side img { width: 100%; height: 100%; object-fit: cover; }
+.warp-photo-side.left { left: 0; transform: rotateY(35deg) scale(.82); }
+.warp-photo-side.right { right: 0; transform: rotateY(-35deg) scale(.82); }
+.warp-photo-controls { display: flex; justify-content: center; align-items: center; gap: 25px; margin-top: 18px; }
+.folder-photo-dialog .warp-photo-controls button { position: static; width: 42px; height: 42px; border: 1px solid #a8b1a8; border-radius: 50%; background: transparent; color: white; font-size: 21px; }
+.warp-photo-controls span { font-size: 10px; letter-spacing: .12em; color: #bcc6bd; }
+@media(max-width:600px) { .warp-photo-viewer { padding: 25px 12px 20px; } .warp-photo-stage { height: 48vh; } .warp-photo-current { width: 90%; } }
+@media(prefers-reduced-motion:reduce) { .glass-folder-stack .glass-folder-peek { transition: none; } }
